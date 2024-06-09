@@ -17,7 +17,13 @@ function Signup() {
     const auth = getAuth();
     const db = getFirestore();
 
+    if (password.length < 6) {
+      setError("Password must be 6 or more characters");
+      return;
+    }
+
     try {
+      // Create user in Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -25,17 +31,23 @@ function Signup() {
       );
       const user = userCredential.user;
 
-      // Store the additional user information in Firestore
+      // Store user's name in Firestore
       await setDoc(doc(db, "users", user.uid), {
         name: name,
-        email: email,
         createdAt: new Date(),
       });
+
+      // Display success message
+      alert("Account created successfully!");
 
       // Redirect to login page or another page
       navigate("/login");
     } catch (error) {
-      setError(error.message);
+      if (error.code === "auth/email-already-in-use") {
+        setError("The email already exists, please Login");
+      } else {
+        setError(error.message);
+      }
     }
   };
 
@@ -44,7 +56,7 @@ function Signup() {
       <div className="signup">
         <h1>Welcome to EMDB!</h1>
         <form onSubmit={handleSignup}>
-          {error && <p>{error}</p>}
+          {error === "The email already exists, please Login" && <p>{error}</p>}
           <input
             type="text"
             placeholder="Your Name"
