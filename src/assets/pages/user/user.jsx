@@ -94,7 +94,9 @@ function User() {
       </nav>
       <div className="content">
         <div className="left-content">
-          <h1>Welcome {userData.name}</h1>
+          <h1>
+            Welcome, <span>{userData.name}</span>!
+          </h1>
           <div className="info-wrapper">
             <h3 className="info-title">Name</h3>
             {editing ? (
@@ -103,6 +105,7 @@ function User() {
                 name="name"
                 value={newUserData.name}
                 onChange={handleChange}
+                required
               />
             ) : (
               <h2 className="info">{userData.name}</h2>
@@ -113,8 +116,9 @@ function User() {
                 name="companyName"
                 value={newUserData.companyName}
                 onChange={handleChange}
+                required
               >
-                <option value="" disabled>
+                <option value="" disabled required>
                   Please select a company
                 </option>
                 {companyNames.map((company, index) => (
@@ -147,7 +151,7 @@ function User() {
             <button onClick={handleSave}>Save</button>
           ) : (
             <button onClick={handleEdit}>
-              Edit Data <MdModeEdit className="icon"/>
+              Edit Data <MdModeEdit className="icon" />
             </button>
           )}
         </div>
