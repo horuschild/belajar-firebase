@@ -15,7 +15,8 @@
 
     button {
       cursor: pointer;
-      background-color: black;
+      background-color: rgb(255, 85, 108);
+      border: white 2px solid;
       color: white;
       padding: 15px;
       border-radius: 10px;
@@ -23,8 +24,9 @@
 
       &:hover {
         background-color: white;
-        color: black;
-        transition: all 0.2s;
+        border: rgb(255, 85, 108) 2px solid;
+        color: rgb(255, 85, 108);
+        transition: all 0.5s;
       }
 
       .logout-icon {

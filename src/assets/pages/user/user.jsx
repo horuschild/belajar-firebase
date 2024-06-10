@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../../components/firebase.js";
-import { FiLogOut } from "react-icons/fi";
+import { MdLogout, MdModeEdit } from "react-icons/md";
 import "./user.scss";
 
 function User() {
@@ -20,6 +20,7 @@ function User() {
     companyName: "",
     expiDate: "",
   });
+  const [companyNames, setCompanyNames] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -42,7 +43,14 @@ function User() {
       }
     };
 
+    const fetchCompanyNames = async () => {
+      const companyCollection = await getDocs(collection(db, "companyNames"));
+      const companyList = companyCollection.docs.map((doc) => doc.data().name);
+      setCompanyNames(companyList);
+    };
+
     fetchUserData();
+    fetchCompanyNames();
   }, [auth]);
 
   const handleSignOut = () => {
@@ -81,7 +89,7 @@ function User() {
       <nav className="nav-user">
         <h3>EMDB</h3>
         <button onClick={handleSignOut}>
-          Sign Out <FiLogOut className="logout-icon" />
+          Sign Out <MdLogout className="logout-icon" />
         </button>
       </nav>
       <div className="content">
@@ -101,13 +109,20 @@ function User() {
             )}
             <h3 className="info-title">Company</h3>
             {editing ? (
-              <input
-                type="text"
+              <select
                 name="companyName"
                 value={newUserData.companyName}
-                placeholder="Please input the data first"
                 onChange={handleChange}
-              />
+              >
+                <option value="" disabled>
+                  Please select a company
+                </option>
+                {companyNames.map((company, index) => (
+                  <option key={index} value={company}>
+                    {company}
+                  </option>
+                ))}
+              </select>
             ) : (
               <h2 className="info">
                 {userData.companyName || "Please input the data first"}
@@ -131,7 +146,9 @@ function User() {
           {editing ? (
             <button onClick={handleSave}>Save</button>
           ) : (
-            <button onClick={handleEdit}>Edit Data</button>
+            <button onClick={handleEdit}>
+              Edit Data <MdModeEdit className="icon"/>
+            </button>
           )}
         </div>
         <div className="right-content">
