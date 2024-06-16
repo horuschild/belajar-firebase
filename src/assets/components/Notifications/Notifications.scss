@@ -1,0 +1,20 @@
+// Notifications.scss
+.notifications {
+  padding: 20px;
+}
+
+.expired-users-list {
+  list-style: none;
+  padding: 0;
+}
+
+.expired-user-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.expired-user-item span {
+  flex: 1;
+}

@@ -5,6 +5,8 @@ import { getAuth, signOut } from "firebase/auth";
 import { MdLogout } from "react-icons/md";
 import Employees from "../../components/Employees/Employees";
 import EditCompanies from "../../components/EditCompanies/EditCompanies";
+import Notifications from "../../components/Notifications/Notifications";
+import NotesToDo from "../../components/NotesToDo/NotesToDo";
 import "./admin.scss";
 
 function Admin() {
@@ -81,8 +83,8 @@ function Admin() {
           {activeTab === "dashboard" && <h2>Dashboard Content</h2>}
           {activeTab === "employees" && <Employees />}
           {activeTab === "editCompanies" && <EditCompanies />}
-          {activeTab === "notifications" && <h2>Notifications Content</h2>}
-          {activeTab === "notes" && <h2>Notes/To-Do Content</h2>}
+          {activeTab === "notifications" && <Notifications />}
+          {activeTab === "notes" && <NotesToDo />}
           {activeTab === "adminUsers" && <h2>Admin Users Content</h2>}
         </div>
       </div>

@@ -8,11 +8,13 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { MdDelete } from "react-icons/md";
+import DeleteConfirmationPopup from "../../components/PopUp/DeleteConfirmationPopup/DeleteConfirmationPopup.jsx";
 import "./EditCompanies.scss";
 
 function EditCompanies() {
   const [companyName, setCompanyName] = useState("");
   const [companies, setCompanies] = useState([]);
+  const [companyToDelete, setCompanyToDelete] = useState(null);
 
   const fetchCompanies = async () => {
     const companySnapshot = await getDocs(collection(db, "companyNames"));
@@ -40,13 +42,22 @@ function EditCompanies() {
     }
   };
 
-  const handleDeleteCompany = async (companyId) => {
+  const handleDeleteCompany = async (company) => {
     try {
-      await deleteDoc(doc(db, "companyNames", companyId));
+      await deleteDoc(doc(db, "companyNames", company.id));
       fetchCompanies();
+      setCompanyToDelete(null);
     } catch (error) {
       console.error("Error deleting company:", error);
     }
+  };
+
+  const handleDeleteRequest = (company) => {
+    setCompanyToDelete(company);
+  };
+
+  const handleCancelDelete = () => {
+    setCompanyToDelete(null);
   };
 
   return (
@@ -65,12 +76,19 @@ function EditCompanies() {
         {companies.map((company) => (
           <li key={company.id} className="company-item">
             <span>{company.name}</span>
-            <button onClick={() => handleDeleteCompany(company.id)}>
+            <button onClick={() => handleDeleteRequest(company)}>
               <MdDelete />
             </button>
           </li>
         ))}
       </ul>
+      {companyToDelete && (
+        <DeleteConfirmationPopup
+          user={companyToDelete}
+          onConfirm={handleDeleteCompany}
+          onCancel={handleCancelDelete}
+        />
+      )}
     </div>
   );
 }
