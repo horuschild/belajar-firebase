@@ -32,9 +32,7 @@ function EditCompanies() {
   const handleAddCompany = async () => {
     if (companyName.trim() === "") return;
     try {
-      await addDoc(collection(db, "companyNames"), {
-        name: companyName,
-      });
+      await addDoc(collection(db, "companyNames"), { name: companyName });
       setCompanyName("");
       fetchCompanies();
     } catch (error) {
@@ -72,16 +70,28 @@ function EditCompanies() {
         />
         <button onClick={handleAddCompany}>Add Company</button>
       </div>
-      <ul className="company-list">
-        {companies.map((company) => (
-          <li key={company.id} className="company-item">
-            <span>{company.name}</span>
-            <button onClick={() => handleDeleteRequest(company)}>
-              <MdDelete />
-            </button>
-          </li>
-        ))}
-      </ul>
+      <div className="company-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Company Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {companies.map((company) => (
+              <tr key={company.id}>
+                <td>{company.name}</td>
+                <td>
+                  <button onClick={() => handleDeleteRequest(company)}>
+                    <MdDelete />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {companyToDelete && (
         <DeleteConfirmationPopup
           user={companyToDelete}

@@ -1,0 +1,108 @@
+.edit-companies-content {
+  width: 100%;
+  background-color: var(
+    --box-color
+  ); /* Use your preferred background color variable */
+  padding: 40px;
+  border-radius: 10px;
+  color: #fff; /* Text color */
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .add-company {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid var(--border-color); /* Use your border color variable */
+      margin-right: 10px;
+      background-color: transparent;
+      color: var(--text-color);
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--primary-hover);
+      }
+    }
+  }
+
+  .company-table {
+    width: 100%;
+    background-color: var(
+      --box-color
+    ); /* Use your preferred background color variable */
+    padding: 20px;
+    border-radius: 10px;
+    overflow: hidden; /* Hide overflow for rounded corners */
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        background-color: var(
+          --table-head-bg-color
+        ); /* Use your table header background color variable */
+        tr {
+          th {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color); /* Use your border color variable */
+            text-align: left;
+            color: #fff; /* Table header text color */
+
+            &:last-child {
+              width: 80px;
+            }
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          &:nth-child(even) {
+            background-color: var(
+              --table-row-even-bg-color
+            ); /* Use your even row background color variable */
+          }
+
+          td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color); /* Use your border color variable */
+            color: var(--text-color); /* Text color */
+            button {
+              margin-right: 10px;
+              width: 45px;
+              height: 45px;
+              border: none;
+              cursor: pointer;
+              color: var(--danger-color);
+              border-radius: 5px;
+              transition: background-color 0.3s;
+              background-color: var(--box-color);
+              font-size: 20px;
+
+              &:hover {
+                color: var(--danger-hover);
+                background-color: var(--box-hover);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
