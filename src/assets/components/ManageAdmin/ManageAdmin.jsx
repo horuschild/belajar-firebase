@@ -124,17 +124,19 @@ function ManageAdmin() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <ul>
-            {filteredNonAdminUsers.map((user) => (
-              <li key={user.id}>
-                {user.name}
-                <button onClick={() => handleSelectUser(user.id)}>
-                  Make Admin
-                </button>
-              </li>
-            ))}
-          </ul>
-          <button onClick={handleCloseAddAdminPopup}>Cancel</button>
+          <div className="user-list">
+            <ul>
+              {filteredNonAdminUsers.map((user) => (
+                <li key={user.id}>
+                  {user.name}
+                  <button onClick={() => handleSelectUser(user.id)}>
+                    Make Admin
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <button className="admin-cancel" onClick={handleCloseAddAdminPopup}>Cancel</button>
         </div>
       )}
     </div>
