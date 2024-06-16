@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../components/firebase.js";
-import EmployeeCard from "../../components/EmployeeCard/EmployeeCard";
 import UserDetailPopup from "../../components/PopUp/UserDetailPopup/UserDetailPopup.jsx";
 import DeleteConfirmationPopup from "../../components/PopUp/DeleteConfirmationPopup/DeleteConfirmationPopup";
+import { MdRemoveRedEye, MdOutlineDeleteOutline } from "react-icons/md";
 import "./Employees.scss";
 
 function Employees() {
@@ -14,12 +14,10 @@ function Employees() {
   useEffect(() => {
     const fetchUsers = async () => {
       const querySnapshot = await getDocs(collection(db, "users"));
-      const userData = querySnapshot.docs
-        .map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
-        .filter((user) => !user.isAdmin); // Exclude users with isAdmin === true
+      const userData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
       setUsers(userData);
     };
 
@@ -53,15 +51,48 @@ function Employees() {
   };
 
   return (
-    <div className="employee-cards">
-      {users.map((user) => (
-        <EmployeeCard
-          key={user.id}
-          user={user}
-          onDelete={handleDeleteRequest}
-          onView={handleView}
-        />
-      ))}
+    <div className="employee-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Email</th>
+            <th>Company</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>
+                <div className="user-info">
+                  <img
+                    src={
+                      "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
+                    }
+                    alt={`${user.name}'s profile`}
+                    className="avatar"
+                  />
+                  {user.name}
+                </div>
+              </td>
+              <td>{user.email}</td>
+              <td>{user.companyName}</td>
+              <td>
+                <button onClick={() => handleView(user)}>
+                  <MdRemoveRedEye />
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDeleteRequest(user)}
+                >
+                  <MdOutlineDeleteOutline />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       {selectedUser && (
         <UserDetailPopup user={selectedUser} onClose={handleClosePopup} />
       )}

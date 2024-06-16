@@ -136,7 +136,9 @@ function ManageAdmin() {
               ))}
             </ul>
           </div>
-          <button className="admin-cancel" onClick={handleCloseAddAdminPopup}>Cancel</button>
+          <button className="admin-cancel" onClick={handleCloseAddAdminPopup}>
+            Cancel
+          </button>
         </div>
       )}
     </div>

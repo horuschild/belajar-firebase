@@ -12,7 +12,7 @@
 }
 
 .popup-content {
-  background: #fff;
+  background: #233044;
   padding: 20px;
   border-radius: 8px;
   text-align: center;
@@ -20,16 +20,22 @@
 
 .buttons {
   margin-top: 20px;
-}
+  button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .delete-btn {
+    background-color: var(--danger-color);
 
-.buttons button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  border-radius: 4px;
+    &:hover {
+      background-color: var(--danger-hover);
+    }
+  }
 }
 
 .buttons button:hover {
