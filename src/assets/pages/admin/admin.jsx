@@ -1,55 +1,29 @@
-import React, { useState, useEffect } from "react";
+// Admin.jsx
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../components/firebase.js"; // Make sure to provide the correct path to your Firebase instance
-import { MdLogout, MdModeEdit } from "react-icons/md";
-import EmployeeCard from "../../components/EmployeeCard/EmployeeCard";
+import { MdLogout } from "react-icons/md";
+import Employees from "../../components/Employees/Employees";
+import EditCompanies from "../../components/EditCompanies/EditCompanies";
 import "./admin.scss";
 
 function Admin() {
   const navigate = useNavigate();
   const auth = getAuth();
-  const [users, setUsers] = useState([]);
   const [activeTab, setActiveTab] = useState("dashboard");
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
         navigate("/login");
       })
       .catch((error) => {
-        // An error happened.
         console.error("Sign out error", error);
       });
   };
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const querySnapshot = await getDocs(collection(db, "users"));
-      const userData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setUsers(userData);
-    };
-
-    fetchUsers();
-  }, []);
-
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-  };
-
-  const handleDelete = (userToDelete) => {
-    // Logic to delete user
-    console.log("Delete user:", userToDelete);
-  };
-
-  const handleView = (userToView) => {
-    // Logic to view user
-    console.log("View user:", userToView);
   };
 
   return (
@@ -105,19 +79,8 @@ function Admin() {
         </div>
         <div className="tab-content">
           {activeTab === "dashboard" && <h2>Dashboard Content</h2>}
-          {activeTab === "employees" && (
-            <div className="employee-cards">
-              {users.map((user) => (
-                <EmployeeCard
-                  key={user.id}
-                  user={user}
-                  onDelete={handleDelete}
-                  onView={handleView}
-                />
-              ))}
-            </div>
-          )}
-          {activeTab === "editCompanies" && <h2>Edit Companies Content</h2>}
+          {activeTab === "employees" && <Employees />}
+          {activeTab === "editCompanies" && <EditCompanies />}
           {activeTab === "notifications" && <h2>Notifications Content</h2>}
           {activeTab === "notes" && <h2>Notes/To-Do Content</h2>}
           {activeTab === "adminUsers" && <h2>Admin Users Content</h2>}
