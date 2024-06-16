@@ -5,6 +5,8 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { db } from "../../components/firebase";
 import "./login.scss";
 
 function Login() {
@@ -17,15 +19,30 @@ function Login() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in.
-        if (user.email === "admin@admin.com") {
+        fetchUserData(user.uid);
+      }
+    });
+  }, []);
+
+  const fetchUserData = async (userId) => {
+    try {
+      const userDoc = await getDoc(doc(db, "users", userId));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        if (userData.isAdmin) {
           navigate("/admin");
         } else {
           navigate("/user");
         }
+      } else {
+        console.log("User document not found.");
+        setError(true);
       }
-    });
-  }, [navigate]);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      setError(true);
+    }
+  };
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -39,17 +56,11 @@ function Login() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
-
-        if (email === "admin@admin.com") {
-          navigate("/admin");
-        } else {
-          navigate("/user");
-        }
+        fetchUserData(user.uid);
       })
       .catch((error) => {
         setError(true);
-        console.log(error.code, error.message);
+        console.error("Login error:", error.code, error.message);
       });
   };
 

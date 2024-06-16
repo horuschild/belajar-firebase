@@ -7,6 +7,7 @@ import Employees from "../../components/Employees/Employees";
 import EditCompanies from "../../components/EditCompanies/EditCompanies";
 import Notifications from "../../components/Notifications/Notifications";
 import NotesToDo from "../../components/NotesToDo/NotesToDo";
+import ManageAdmin from "../../components/ManageAdmin/ManageAdmin";
 import "./admin.scss";
 
 function Admin() {
@@ -85,7 +86,7 @@ function Admin() {
           {activeTab === "editCompanies" && <EditCompanies />}
           {activeTab === "notifications" && <Notifications />}
           {activeTab === "notes" && <NotesToDo />}
-          {activeTab === "adminUsers" && <h2>Admin Users Content</h2>}
+          {activeTab === "adminUsers" && <ManageAdmin />}
         </div>
       </div>
     </div>
