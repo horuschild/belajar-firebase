@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import { MdLogout } from "react-icons/md";
+import Dashboard from "../../components/Dashboard/Dashboard.jsx";
 import Employees from "../../components/Employees/Employees";
 import EditCompanies from "../../components/EditCompanies/EditCompanies";
 import Notifications from "../../components/Notifications/Notifications";
@@ -81,7 +82,7 @@ function Admin() {
           </div>
         </div>
         <div className="tab-content">
-          {activeTab === "dashboard" && <h2>Dashboard Content</h2>}
+          {activeTab === "dashboard" && <Dashboard />}
           {activeTab === "employees" && <Employees />}
           {activeTab === "editCompanies" && <EditCompanies />}
           {activeTab === "notifications" && <Notifications />}

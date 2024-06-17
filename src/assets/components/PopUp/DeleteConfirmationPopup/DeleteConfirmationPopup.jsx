@@ -10,8 +10,8 @@ function DeleteConfirmationPopup({ user, onConfirm, onCancel }) {
       <div className="popup-content">
         <p>Are you sure you want to delete {user.name}?</p>
         <div className="buttons">
-          <button onClick={onCancel}>No</button>
           <button className="delete-btn" onClick={() => onConfirm(user)}>Yes</button>
+          <button onClick={onCancel}>No</button>
         </div>
       </div>
     </div>

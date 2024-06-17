@@ -1,11 +1,9 @@
 .edit-companies-content {
   width: 100%;
-  background-color: var(
-    --box-color
-  ); /* Use your preferred background color variable */
+  background-color: var(--box-color);
   padding: 40px;
   border-radius: 10px;
-  color: #fff; /* Text color */
+  color: var(--font-color);
 
   h2 {
     margin-bottom: 20px;
@@ -20,9 +18,9 @@
       flex: 1;
       padding: 10px;
       border-radius: 5px;
-      border: 1px solid var(--border-color); /* Use your border color variable */
       margin-right: 10px;
-      background-color: transparent;
+      border: none;
+      background-color: var(--box-hover);
       color: var(--text-color);
     }
 
@@ -42,27 +40,23 @@
 
   .company-table {
     width: 100%;
-    background-color: var(
-      --box-color
-    ); /* Use your preferred background color variable */
+    background-color: var(--box-color);
     padding: 20px;
     border-radius: 10px;
-    overflow: hidden; /* Hide overflow for rounded corners */
+    overflow: hidden;
 
     table {
       width: 100%;
       border-collapse: collapse;
 
       thead {
-        background-color: var(
-          --table-head-bg-color
-        ); /* Use your table header background color variable */
+        background-color: var(--table-head-bg-color);
         tr {
           th {
             padding: 15px;
-            border-bottom: 1px solid var(--border-color); /* Use your border color variable */
+            border-bottom: 1px solid var(--border-color);
             text-align: left;
-            color: #fff; /* Table header text color */
+            color: var(--font-color);
 
             &:last-child {
               width: 80px;
@@ -74,15 +68,13 @@
       tbody {
         tr {
           &:nth-child(even) {
-            background-color: var(
-              --table-row-even-bg-color
-            ); /* Use your even row background color variable */
+            background-color: var(--table-row-even-bg-color);
           }
 
           td {
             padding: 15px;
-            border-bottom: 1px solid var(--border-color); /* Use your border color variable */
-            color: var(--text-color); /* Text color */
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-color);
             button {
               margin-right: 10px;
               width: 45px;
