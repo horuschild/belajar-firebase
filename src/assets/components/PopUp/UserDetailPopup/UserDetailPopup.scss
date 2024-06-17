@@ -12,11 +12,12 @@
 }
 
 .popup-content {
-  background-color: #233044;
+  background-color: red;
   padding: 20px;
   border-radius: 8px;
   width: 400px;
   position: relative;
+  width: 550px;
 }
 
 .close-button {
@@ -25,20 +26,29 @@
   right: 10px;
   border: none;
   background: none;
-  font-size: 24px;
+  font-size: 30px;
   cursor: pointer;
+  color: var(--danger-color);
+
+  &:hover {
+    color: var(--danger-hover);
+    transition: .2s all;
+  }
 }
 
 .user-details {
   margin-bottom: 20px;
+  text-align: left;
+  text-transform: capitalize;
 }
 
 .id-card-placeholder {
   width: 100%;
-  height: 200px;
+  height: 300px;
   background: #f0f0f0;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #888;
+  border-radius: 10px;
 }

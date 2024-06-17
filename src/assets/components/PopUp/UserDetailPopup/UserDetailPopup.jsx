@@ -16,10 +16,9 @@ function UserDetailPopup({ user, onClose }) {
           <p>Company: {user.companyName}</p>
           <p>Email: {user.email}</p>
           <p>Experience Date: {user.expiDate}</p>
-          {/* Add more user details as needed */}
         </div>
         <div className="id-card-placeholder">
-          <p>ID Card Photo Placeholder</p>
+          <p>SIMPER Picture Not Uploaded</p>
         </div>
       </div>
     </div>

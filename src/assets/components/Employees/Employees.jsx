@@ -8,16 +8,19 @@ import "./Employees.scss";
 
 function Employees() {
   const [users, setUsers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [userToDelete, setUserToDelete] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
       const querySnapshot = await getDocs(collection(db, "users"));
-      const userData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      const userData = querySnapshot.docs
+        .map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        .filter((user) => !user.isAdmin); // Exclude users with isAdmin true
       setUsers(userData);
     };
 
@@ -50,19 +53,33 @@ function Employees() {
     setUserToDelete(null);
   };
 
+  const filteredUsers = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.expiDate.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.companyName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="employee-table">
+      <input
+        type="text"
+        placeholder="Search employees..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="search-input"
+      />
       <table>
         <thead>
           <tr>
             <th>Employee</th>
-            <th>Email</th>
+            <th>Expiration Date</th>
             <th>Company</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {filteredUsers.map((user) => (
             <tr key={user.id}>
               <td>
                 <div className="user-info">
@@ -73,10 +90,10 @@ function Employees() {
                     alt={`${user.name}'s profile`}
                     className="avatar"
                   />
-                  {user.name}
+                  <strong>{user.name}</strong>
                 </div>
               </td>
-              <td>{user.email}</td>
+              <td>{user.expiDate}</td>
               <td>{user.companyName}</td>
               <td>
                 <button onClick={() => handleView(user)}>
