@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../components/firebase";
+import { MdAdminPanelSettings } from "react-icons/md";
 import "./ManageAdmin.scss";
 
 function ManageAdmin() {
@@ -99,21 +100,27 @@ function ManageAdmin() {
   return (
     <div className="manage-admin">
       <h2>Manage Admin</h2>
+      <div className="add-admin-button">
+        <button onClick={handleOpenAddAdminPopup}>Add Admin</button>
+      </div>
       <div className="admin-list">
         <h3>Admin Users:</h3>
-        <ul>
+        <ul className="admins-item">
           {adminUsers.map((user) => (
             <li key={user.id}>
-              {user.name}
+              <div>
+                <img
+                  src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
+                  alt=""
+                />
+                {user.name}
+              </div>
               <button onClick={() => handleRevokeAdminRole(user.id)}>
                 Revoke Admin
               </button>
             </li>
           ))}
         </ul>
-      </div>
-      <div className="add-admin-button">
-        <button onClick={handleOpenAddAdminPopup}>Add Admin</button>
       </div>
       {showAddAdminPopup && (
         <div className="add-admin-popup">
@@ -130,14 +137,15 @@ function ManageAdmin() {
                 <li key={user.id}>
                   {user.name}
                   <button onClick={() => handleSelectUser(user.id)}>
-                    Make Admin
+                    <MdAdminPanelSettings />
+                    Grant Admin
                   </button>
                 </li>
               ))}
             </ul>
           </div>
           <button className="admin-cancel" onClick={handleCloseAddAdminPopup}>
-            Cancel
+            Close
           </button>
         </div>
       )}
