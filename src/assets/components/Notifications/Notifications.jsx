@@ -1,7 +1,7 @@
-// Notifications.jsx
 import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../components/firebase.js";
+import { RiPassExpiredFill, RiContactsBook2Line } from "react-icons/ri";
 import "./Notifications.scss";
 
 function Notifications() {
@@ -26,16 +26,36 @@ function Notifications() {
 
   return (
     <div className="notifications">
-      <h2>Expired Licenses</h2>
-      <ul className="expired-users-list">
-        {expiredUsers.map((user) => (
-          <li key={user.id} className="expired-user-item">
-            <span>{user.name}</span>
-            <span>{user.companyName}</span>
-            <span>{user.expiDate}</span>
-          </li>
-        ))}
-      </ul>
+      <div className="notif-wrapper">
+        <div className="expired-users-list">
+          <h2>Expired Licenses</h2>
+          {expiredUsers.map((user) => (
+            <div key={user.id} className="expired-user-item">
+              <div className="notif-icon">
+                <RiPassExpiredFill />
+              </div>
+              <div className="notif-info">
+                <h3>{user.name} ({user.companyName})</h3>
+                <p>Simper License expired on {user.expiDate}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="not-filled-user-list">
+          <h2>Uncompleted Data</h2>
+          {expiredUsers.map((user) => (
+            <div key={user.id} className="expired-user-item">
+              <div className="notif-icon">
+                <RiContactsBook2Line />
+              </div>
+              <div className="notif-info">
+                <h3>{user.name} {user.companyName}</h3>
+                <p>Simper License expired on {user.expiDate}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
