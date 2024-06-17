@@ -14,9 +14,12 @@ body {
   --border-color: rgb(62, 62, 87);
   --box-color: #233044;
   --box-hover: #394557;
+  --box-hover-lighter: #4d5868;
   --text-color: #f3f4f5;
   --danger-color: #f31260;
   --danger-hover: #db1056;
   --primary-color: #006fee;
   --primary-hover: #0064d6;
+  --green-color: #17c964;
+  --green-hover: #12A150;
 }

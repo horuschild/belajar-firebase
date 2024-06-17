@@ -7,7 +7,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
-import { MdDelete } from "react-icons/md";
+import {MdOutlineDeleteOutline } from "react-icons/md";
 import DeleteConfirmationPopup from "../../components/PopUp/DeleteConfirmationPopup/DeleteConfirmationPopup.jsx";
 import "./EditCompanies.scss";
 
@@ -84,7 +84,7 @@ function EditCompanies() {
                 <td>{company.name}</td>
                 <td>
                   <button onClick={() => handleDeleteRequest(company)}>
-                    <MdDelete />
+                    <MdOutlineDeleteOutline />
                   </button>
                 </td>
               </tr>

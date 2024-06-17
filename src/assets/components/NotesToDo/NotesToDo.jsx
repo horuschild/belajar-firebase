@@ -8,6 +8,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { db } from "../../components/firebase";
+import { MdDeleteOutline, MdOutlineAddCircle } from "react-icons/md";
 import "./NotesToDo.scss";
 
 function NotesToDo() {
@@ -117,8 +118,8 @@ function NotesToDo() {
             value={todoText}
             onChange={(e) => setTodoText(e.target.value)}
           />
-          <button className="todo-button" onClick={handleAddTodo}>
-            Add
+          <button className="add-button" onClick={handleAddTodo}>
+            <MdOutlineAddCircle />
           </button>
         </div>
         <ul>
@@ -128,13 +129,14 @@ function NotesToDo() {
                 type="checkbox"
                 checked={todo.completed}
                 onChange={() => handleToggleTodo(index)}
+                id={`todo-${index}`}
               />
-              <span>{todo.text}</span>
+              <label htmlFor={`todo-${index}`}>{todo.text}</label>
               <button
-                className="todo-button"
+                className="delete-button"
                 onClick={() => handleDeleteTodo(index)}
               >
-                Delete
+                <MdDeleteOutline />
               </button>
             </li>
           ))}
@@ -149,8 +151,8 @@ function NotesToDo() {
             value={noteText}
             onChange={(e) => setNoteText(e.target.value)}
           />
-          <button className="note-button" onClick={handleAddNote}>
-            Add
+          <button className="add-button" onClick={handleAddNote}>
+            <MdOutlineAddCircle />
           </button>
         </div>
         <ul>
@@ -158,10 +160,10 @@ function NotesToDo() {
             <li key={index}>
               <span>{note.text}</span>
               <button
-                className="note-button"
+                className="delete-button"
                 onClick={() => handleDeleteNote(index)}
               >
-                Delete
+                <MdDeleteOutline />
               </button>
             </li>
           ))}

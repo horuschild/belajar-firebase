@@ -3,9 +3,10 @@
   gap: 20px;
 }
 
-.todo-list, .notes {
+.todo-list,
+.notes {
   flex: 1;
-  background: #f4f4f4;
+  background: var(--box-color);
   padding: 20px;
   border-radius: 8px;
 }
@@ -14,35 +15,49 @@ h2 {
   margin-bottom: 20px;
 }
 
-.add-todo, .add-note {
+.add-todo,
+.add-note {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-.add-todo input, .add-note input {
+.add-todo input,
+.add-note input {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid var(--font-color);
+  border-radius: 8px;
+  background: var(--box-hover);
+  color: var(--font-color);
 }
 
-.todo-button, .note-button {
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.todo-button:hover, .note-button:hover {
+.todo-button:hover,
+.note-button:hover {
   background-color: #0056b3;
 }
 
 ul {
   list-style: none;
   padding: 0;
+  min-height: 480px;
+  max-height: 480px;
+  overflow: auto;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: var(--box-color);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--box-hover);
+    border-radius: 20px;
+
+    &:hover {
+      background-color: var(--box-hover-lighter);
+      transition: ease-in-out 0.3s;
+    }
+  }
 }
 
 li {
@@ -50,14 +65,59 @@ li {
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
 }
 
-li.completed span {
+li.completed label {
   text-decoration: line-through;
 }
 
-button.todo-button, button.note-button {
+/* Custom Checkbox Style */
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+}
+
+input[type="checkbox"] + label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--font-color);
+  border-radius: 3px;
+  background: var(--box-hover);
+  transition: background 0.3s;
+}
+
+input[type="checkbox"]:checked + label:before {
+  background: var(--primary-color);
+}
+
+input[type="checkbox"]:checked + label:after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+}
+
+input[type="checkbox"]:checked + label:after {
+  display: block;
+}
+
+button.todo-button,
+button.note-button {
   padding: 5px 10px;
   border: none;
   background-color: #dc3545;
@@ -66,6 +126,42 @@ button.todo-button, button.note-button {
   cursor: pointer;
 }
 
-button.todo-button:hover, button.note-button:hover {
-  background-color: #c82333;
+.delete-button {
+  width: 45px;
+  height: 45px;
+  background: var(--box-color);
+  border: none;
+  font-size: 25px;
+  color: var(--danger-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: var(--danger-color);
+    color: var(--font-color);
+    transition: ease-out 0.3s;
+  }
+}
+
+.add-button {
+  width: 45px;
+  height: 45px;
+  background: var(--font-color);
+  border: none;
+  font-size: 25px;
+  color: var(--font-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: var(--primary-color);
+    color: var(--font-color);
+    transition: ease-out 0.3s;
+  }
 }
